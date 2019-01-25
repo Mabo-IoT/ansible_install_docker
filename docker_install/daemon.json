@@ -1,0 +1,15 @@
+
+{
+  "registry-mirrors": [
+        "https://registry.docker-cn.com",
+        "http://10.7.0.116:10051"
+    ],
+    "insecure-registries": [
+        "10.7.0.116:10051","10.7.0.116"
+    ],
+    "log-driver": "json-file",
+    "log-opts": {"max-size":"50m", "max-file":"5"}
+}
+
+
+
