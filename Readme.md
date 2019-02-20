@@ -1,4 +1,4 @@
-## 1、安装
+## 1、安装（非docker安装方式）
 
 ####     a. 安装依赖包
 
@@ -15,7 +15,7 @@
 
 	ansible --version
 
-​	
+​	注：（docker镜像安装ansible请查看ansible_docker_image文件下文档）
 
 ## 2、使用
 

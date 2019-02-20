@@ -1,4 +1,4 @@
-1、安装
+﻿1、安装（非docker镜像安装方式）
     a. 安装依赖包
 	python-yaml-3.09-2.el6.rf.x86_64.rpm、python-crypto-2.0.1-22.el6.x86_64.rpm、
 	python-babel-0.9.4-5.1.el6.noarch.rpm、python-setuptools-0.6.10-4.el6_9.noarch.rpm、
