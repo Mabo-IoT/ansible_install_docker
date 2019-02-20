@@ -2,9 +2,9 @@
 
 ​       （默认有网环境并已安装docker）
 
-​          编辑Dockerfile
+​          a.  编辑Dockerfile
 
-```
+```yaml
     FROM alpine:3.9
 
     MAINTAINER William Yeh <william.pjyeh@gmail.com>
@@ -44,33 +44,33 @@
 
 ```
 
-​      输入构建镜像命令：
+​        b. 输入构建镜像命令：
 
-```
+```shell
 	docker build -t mabo/ansible:v1.0 -f Dockerfile .
 ```
 
-​      通过镜像运行一个容器
+​        c. 通过镜像运行一个容器
 
-```
+```shell
    docker run -it -v /root/.ssh:/root/.ssh mabo/ansible:v1.0 sh
 ```
 
-​      保存镜像
+​        d. 保存镜像
 
-```
+```shell
    docker save -o ansible_docker_image_alpine39 mabo/ansible:v1.0
 ```
 
 ### 2、在服务器加载镜像
 
-```
+```shell
    docker load -i ansible_docker_image_alpine39
 ```
 
 ### 3、服务器端ssh免密钥登陆
 
-​      在/home/ladmin/下创建.ssh文件夹，之后输入命令：
+​      a. 在/home/ladmin/下创建.ssh文件夹，之后输入命令：
 
 ```
    ssh-keygen
@@ -78,15 +78,37 @@
 
 ​      将在.ssh文件夹下生成公钥和私钥。
 
-​      将公钥id_rsa.pub传送至下层各个中间机。
+​      b. 将公钥id_rsa.pub传送至下层各个中间机。
 
 ​     eg：
 
-```
+```shell
    ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.140.131
 ```
 
-### 4、将文件传送至中间机
+### 4、用docker-compose运行ansible分发docker并安装
 
+​      a . 编写docker-compose.yaml文件
 
+```yaml
+   version: '3.6'
+   services:
+     ansible:
+       images: "mabo/ansible:v1.0"
+       volumes:
+          - /home/ladmin/.ssh:/root/.ssh
+          - /usr/mabo/install/ansible_install_docker/ansible:/etc/ansible
+          - /usr/mabo/install/ansible_install_docker/docker_install:/usr/mabo/
+       command: ansible-playbook /usr/mabo/docker_install/install_docker.yml      
+```
+
+​      ansible文件夹里保存的为hosts文件，里面为各个中间机的ip
+
+​      docker_install 文件夹保存的为docker相关rpm包    
+
+​       b.  通过docker-compose运行ansible命令
+
+```shell
+    sudo docker-compose up
+```
 
