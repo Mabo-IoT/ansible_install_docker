@@ -110,5 +110,7 @@
 
 ```shell
     sudo docker-compose up
+    docker-compose -f docker-compose_file.yaml restart
+    docker ps -a 
 ```
 
